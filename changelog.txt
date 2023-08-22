@@ -1,0 +1,10 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 22.8.2023
+  New:
+    - Added mirrors for Oil Refinery recipes: crude oil, heavy oil cracking, light oil cracking
+    - Added mirrors for Chemistry Lab recipes: 
+  Assets:
+    - Added first pass of icons for mirrored recipes
+  TODO:
+    - Ethanol, Sulphur, Plastic!
