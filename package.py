@@ -1,8 +1,11 @@
+import json
 import os
 import shutil
 
 # Get formatted package name
-packagename = "IndustrialRevolution3MirroredRecipes_1.0.0"
+with open("info.json") as jsonfile:
+    jsondata = json.load(jsonfile)
+    packagename = f"{jsondata['name']}_{jsondata['version']}"
 projectdir = os.getcwd()
 packagedir = os.path.join(projectdir, packagename)
 
@@ -44,7 +47,7 @@ packagefile = shutil.make_archive(packagename, 'zip', projectdir, packagename)
 # shutil.copy(packagefile, os.path.join(os.getenv('APPDATA'), f"Factorio/mods/{packagename}.zip"))
 
 # Copy the package directory into the mods subfolder
-modsdir = os.path.join(os.getenv('APPDATA'), f"Factorio/mods/{packagename}")
+modsdir = os.path.join(os.getenv('APPDATA'), f'Factorio/mods/{packagename}')
 if not os.path.exists(modsdir):
     os.makedirs(modsdir)
 else:

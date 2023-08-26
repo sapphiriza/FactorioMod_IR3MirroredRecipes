@@ -2,8 +2,9 @@
 
 local f = {}
 local g = require("code.globals")
+local locale = require("__rusty-locale__.locale")
 
-local function get_single_icons(icon)
+function f.get_single_icons(icon)
 	return {
 		{
 			icon = DIR.get_icon_path(icon, DIR.icon_size, g.icon_path),
@@ -16,15 +17,18 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function f.create_mirror_recipe(input)
-	if not data.raw.recipe[input.original_name] then error("IR3 Mirrored Recipes: no such recipe as "..input.original_name) end
-	local recipe = table.deepcopy(data.raw.recipe[input.original_name])
-	recipe.name = input.mirror_name
-    recipe.localised_name = { "recipe-name."..input.mirror_name }
-	local icon = input.mirror_name
+	local recipe = table.deepcopy(data.raw.recipe[input.original])
+	if recipe == nil then
+		DIR.spam_log("Unable to find original recipe "..input.original.." for mirror "..input.mirror, DIR.log_level.error)
+		return
+	end
+	recipe.name = input.mirror
+	recipe.localised_name = { "", locale.of(recipe).name, " (mirrored)" }
+	local icon = input.mirror
 	if input.icon_name then
 		icon = input.icon_name
 	end
-	recipe.icons = get_single_icons(icon)
+	recipe.icons = f.get_single_icons(icon)
 	recipe.order = recipe.order.."m"
 
 	-- mirror ingredients
@@ -45,21 +49,20 @@ function f.create_mirror_recipe(input)
 		recipe.results[num-i] = temp
 	end
 
-	-- log("IR3:"..serpent.block(data.raw.recipe[input.original_name]))
+	-- log("IR3:"..serpent.block(data.raw.recipe[input.original]))
 	-- log("IR3MR:"..serpent.block(recipe))
 	data:extend({recipe})
-	return data.raw.recipe[input.mirror_name]
+	return data.raw.recipe[input.mirror]
 end
 
 ---------------------------------------------------------------------------------------------------
 
 function f.add_mirror_to_technology(input)
-	local name = input.original_name
+	local name = input.original
 	if input.technology then
 		name = input.technology
 	end
-	if not data.raw.technology[name] then error("IR3 MIrrored Recipes: no such recipe as "..name) end
-	DIR.add_unlock_to_tech(name, input.mirror_name, input.tech_index)
+	DIR.add_unlock_to_tech(name, input.mirror, input.tech_index)
 end
 
 ---------------------------------------------------------------------------------------------------

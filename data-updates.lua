@@ -1,6 +1,10 @@
 ---------------------------------------------------------------------------------------------------
 
--- unfix recipe subgroup for ammonia
-data.raw.recipe["ir3mr-ammonia-gas"].subgroup = "ir-fluid-recipes"
+local f = require("code.functions")
+local g = require("code.globals")
+
+for _,recipe in pairs(g.recipes) do
+	f.add_mirror_to_technology(recipe)
+end
 
 ---------------------------------------------------------------------------------------------------
