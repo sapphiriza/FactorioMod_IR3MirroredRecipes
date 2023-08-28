@@ -49,6 +49,11 @@ g.recipes = {
         technology = "plastics",
     },
     {
+        original = "high-octane-fluid",
+        mirror = "ir3mr-high-octane-fluid",
+        technology = "rocket-fuel",
+    },
+    {
         original = "coal-liquefaction",
         mirror = "ir3mr-coal-liquefaction",
     },

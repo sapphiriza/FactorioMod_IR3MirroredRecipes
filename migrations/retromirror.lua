@@ -13,6 +13,7 @@ for index, force in pairs(game.forces) do
     recipes["ir3mr-lubricant"].enabled = techs["lubricant"].researched
     recipes["ir3mr-sulfur"].enabled = techs["sulfur-processing"].researched
     recipes["ir3mr-plastic-bar"].enabled = techs["plastics"].researched
+    recipes["ir3mr-high-octane-fluid"].enabled = techs["rocket-fuel"].researched
     recipes["ir3mr-coal-liquefaction"].enabled = techs["coal-liquefaction"].researched
     
     recipes["ir3mr-ethanol"].enabled = techs["ir-ethanol-1"].researched
