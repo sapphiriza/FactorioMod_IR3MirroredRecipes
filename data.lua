@@ -7,6 +7,19 @@ for _,recipe in pairs(g.recipes) do
 	f.create_mirror_recipe(recipe)
 end
 
+-- productivity module fixup
+for _,module in pairs(data.raw.module) do
+	if module.limitation then
+		for _,recipe in pairs(g.recipes) do
+			local found = false
+			for _,limitation in pairs(module.limitation) do
+				if limitation == recipe.original then found = true break end
+			end
+			if found then table.insert(module.limitation, recipe.mirror) end
+		end
+	end
+end
+
 -- Fixup icons for special recipes
 DIR.add_icons_to_recipe(
     data.raw.recipe["ir3mr-ethanol"],
